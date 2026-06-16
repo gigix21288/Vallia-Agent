@@ -1,8 +1,8 @@
-# Heimdall Agent
+# Vallia Agent
 
 🇮🇹 Italiano · [🇬🇧 English](README.md)
 
-Una piccola **sonda di rete locale** per l'app [Heimdall OS](https://github.com/).
+Una piccola **sonda di rete locale** per l'app [Vallia](https://github.com/).
 Osserva il traffico della tua rete e trasmette le **intestazioni dei pacchetti**
 all'app via WebSocket **sulla tua LAN**.
 
@@ -48,8 +48,8 @@ solo il traffico di quel portatile).
 | `dns`            | Solo le risoluzioni DNS: dispositivo → dominio → IP   | Vuoi **meno dati / più privacy**        |
 
 ```bash
-sudo python3 heimdall_agent.py            # pcap (default)
-sudo python3 heimdall_agent.py --mode dns # solo DNS
+sudo python3 vallia_agent.py            # pcap (default)
+sudo python3 vallia_agent.py --mode dns # solo DNS
 ```
 
 ---
@@ -58,18 +58,18 @@ sudo python3 heimdall_agent.py --mode dns # solo DNS
 
 ### 1) Script veloce (qualsiasi Linux / Raspberry Pi) — la più facile
 ```bash
-git clone https://github.com/gigix21288/Heimdall-Agent.git
-cd Heimdall-Agent
+git clone https://github.com/gigix21288/Vallia-Agent.git
+cd Vallia-Agent
 sudo ./install.sh          # oppure: sudo ./install.sh dns
 ```
-Installa le dipendenze, copia l'agente in `/opt/heimdall-agent` e lo avvia come
+Installa le dipendenze, copia l'agente in `/opt/vallia-agent` e lo avvia come
 **servizio systemd** che parte all'accensione. Stampa l'URL esatto da incollare
 nell'app.
 
 ### 2) Docker (NAS / homelab)
 ```bash
-git clone https://github.com/gigix21288/Heimdall-Agent.git
-cd Heimdall-Agent
+git clone https://github.com/gigix21288/Vallia-Agent.git
+cd Vallia-Agent
 docker compose up -d --build
 ```
 Usa la rete host + i permessi di cattura raw per vedere la LAN. Modifica
@@ -95,7 +95,7 @@ dispositivi). Per la maggior parte degli utenti consigliamo le forme 1–3.
 
 ## Punta l'app all'agente
 
-Nell'app Heimdall → **Sentry Monitor**, imposta l'URL dell'agente su:
+Nell'app Vallia → **Sentry Monitor**, imposta l'URL dell'agente su:
 
 ```
 ws://<ip-host-agente>:8765/stream/packets
@@ -108,8 +108,8 @@ privati (RFC-1918) — per scelta rifiuta qualsiasi indirizzo pubblico.
 
 ## Verifica che funzioni
 ```bash
-sudo systemctl status heimdall-agent     # il servizio è attivo?
-sudo journalctl -u heimdall-agent -f     # log in tempo reale
+sudo systemctl status vallia-agent     # il servizio è attivo?
+sudo journalctl -u vallia-agent -f     # log in tempo reale
 ```
 Apri **Sentry Monitor** nell'app e connettiti: dovresti vedere il contatore
 pacchetti salire e la **mappa del traffico** popolarsi.

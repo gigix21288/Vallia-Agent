@@ -1,5 +1,5 @@
 # Keep LF line endings in the repo. The agent runs on Linux and CRLF would
-# break the shebang of install.sh / heimdall-agent.init ("bad interpreter ^M").
+# break the shebang of install.sh / vallia-agent.init ("bad interpreter ^M").
 * text=auto eol=lf
 
 # Be explicit for the executable scripts.
@@ -7,4 +7,4 @@
 *.py         text eol=lf
 *.init       text eol=lf
 Makefile     text eol=lf
-heimdall-agent.init text eol=lf
+vallia-agent.init text eol=lf

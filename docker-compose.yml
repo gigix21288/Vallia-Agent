@@ -1,4 +1,4 @@
-# Heimdall Agent — Docker deployment (NAS / homelab / always-on Linux box).
+# Vallia Agent — Docker deployment (NAS / homelab / always-on Linux box).
 #
 #   docker compose up -d --build
 #
@@ -6,9 +6,9 @@
 # the LAN traffic. It must run on a machine positioned at a network choke point
 # (a router/gateway, or a host receiving mirrored traffic).
 services:
-  heimdall-agent:
+  vallia-agent:
     build: .
-    container_name: heimdall-agent
+    container_name: vallia-agent
     network_mode: host          # required: see the LAN, expose port 8765
     cap_add:
       - NET_RAW                  # required: raw packet capture

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Heimdall Agent installer for Linux / Raspberry Pi OS / Debian / Ubuntu.
-# Installs the agent to /opt/heimdall-agent and runs it as a systemd service
+# Vallia Agent installer for Linux / Raspberry Pi OS / Debian / Ubuntu.
+# Installs the agent to /opt/vallia-agent and runs it as a systemd service
 # that auto-starts on boot.
 #
 #   sudo ./install.sh                  # pcap mode (default), no auth
@@ -12,7 +12,7 @@ set -euo pipefail
 
 MODE="${1:-pcap}"
 TOKEN="${2:-}"
-AGENT_DIR="/opt/heimdall-agent"
+AGENT_DIR="/opt/vallia-agent"
 
 if [[ $EUID -ne 0 ]]; then
   echo "Please run with sudo: sudo ./install.sh ${MODE}" >&2
@@ -32,17 +32,17 @@ fi
 
 echo "==> Installing agent to ${AGENT_DIR}"
 mkdir -p "${AGENT_DIR}"
-cp "$(dirname "$0")/heimdall_agent.py" "${AGENT_DIR}/"
+cp "$(dirname "$0")/vallia_agent.py" "${AGENT_DIR}/"
 
 echo "==> Creating systemd service (mode=${MODE})"
-cat >/etc/systemd/system/heimdall-agent.service <<EOF
+cat >/etc/systemd/system/vallia-agent.service <<EOF
 [Unit]
-Description=Heimdall Agent (local LAN sensor for the Heimdall app)
+Description=Vallia Agent (local LAN sensor for the Vallia app)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/python3 ${AGENT_DIR}/heimdall_agent.py --mode ${MODE}${TOKEN:+ --token ${TOKEN}}
+ExecStart=/usr/bin/python3 ${AGENT_DIR}/vallia_agent.py --mode ${MODE}${TOKEN:+ --token ${TOKEN}}
 Restart=always
 RestartSec=3
 User=root
@@ -52,13 +52,13 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-systemctl enable --now heimdall-agent
+systemctl enable --now vallia-agent
 
 IP_ADDR="$(hostname -I | awk '{print $1}')"
 echo ""
-echo "✅ Heimdall Agent is running (systemd: heimdall-agent)."
-echo "   Status:  sudo systemctl status heimdall-agent"
-echo "   Logs:    sudo journalctl -u heimdall-agent -f"
+echo "✅ Vallia Agent is running (systemd: vallia-agent)."
+echo "   Status:  sudo systemctl status vallia-agent"
+echo "   Logs:    sudo journalctl -u vallia-agent -f"
 echo ""
 echo "👉 In the app → Sentry Monitor, set the agent URL to:"
 echo "   ws://${IP_ADDR}:8765/stream/packets"

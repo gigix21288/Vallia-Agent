@@ -6,10 +6,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && pip install --no-cache-dir scapy "websockets>=12"
 
-COPY heimdall_agent.py /app/heimdall_agent.py
+COPY vallia_agent.py /app/vallia_agent.py
 WORKDIR /app
 
 # NOTE: the container MUST run with host networking + NET_RAW/NET_ADMIN so it
 # can see LAN traffic (see docker-compose.yml / README).
-ENTRYPOINT ["python", "heimdall_agent.py"]
+ENTRYPOINT ["python", "vallia_agent.py"]
 CMD ["--mode", "pcap"]

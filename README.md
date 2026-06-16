@@ -1,8 +1,8 @@
-# Heimdall Agent
+# Vallia Agent
 
 🇬🇧 English · [🇮🇹 Italiano](README.it.md)
 
-A tiny **local network sensor** for the [Heimdall OS](https://github.com/) phone app.
+A tiny **local network sensor** for the [Vallia](https://github.com/) phone app.
 It watches your network's traffic and streams **packet headers** to the app over a
 WebSocket **on your LAN**.
 
@@ -46,8 +46,8 @@ see that laptop's own traffic).
 | `dns`           | Only DNS lookups: device → domain → IP             | You want **less data / more privacy**       |
 
 ```bash
-sudo python3 heimdall_agent.py            # pcap (default)
-sudo python3 heimdall_agent.py --mode dns # DNS-only
+sudo python3 vallia_agent.py            # pcap (default)
+sudo python3 vallia_agent.py --mode dns # DNS-only
 ```
 
 ---
@@ -56,17 +56,17 @@ sudo python3 heimdall_agent.py --mode dns # DNS-only
 
 ### 1) Quick script (any Linux box / Raspberry Pi) — easiest
 ```bash
-git clone https://github.com/gigix21288/Heimdall-Agent.git
-cd Heimdall-Agent
+git clone https://github.com/gigix21288/Vallia-Agent.git
+cd Vallia-Agent
 sudo ./install.sh          # or: sudo ./install.sh dns
 ```
-This installs deps, copies the agent to `/opt/heimdall-agent`, and runs it as a
+This installs deps, copies the agent to `/opt/vallia-agent`, and runs it as a
 **systemd service** that starts on boot. It prints the exact URL to paste in the app.
 
 ### 2) Docker (NAS / homelab)
 ```bash
-git clone https://github.com/gigix21288/Heimdall-Agent.git
-cd Heimdall-Agent
+git clone https://github.com/gigix21288/Vallia-Agent.git
+cd Vallia-Agent
 docker compose up -d --build
 ```
 Uses host networking + raw-capture caps so it can see the LAN. Edit the `command:`
@@ -91,7 +91,7 @@ For most users, forms 1–3 are recommended.
 
 ## Point the app at the agent
 
-In the Heimdall app → **Sentry Monitor**, set the agent URL to:
+In the Vallia app → **Sentry Monitor**, set the agent URL to:
 
 ```
 ws://<agent-host-ip>:8765/stream/packets
@@ -104,8 +104,8 @@ e.g. `ws://192.168.1.50:8765/stream/packets`. The app **only** accepts private
 
 ## Verify it's working
 ```bash
-sudo systemctl status heimdall-agent     # service up?
-sudo journalctl -u heimdall-agent -f     # live logs
+sudo systemctl status vallia-agent     # service up?
+sudo journalctl -u vallia-agent -f     # live logs
 ```
 Open **Sentry Monitor** in the app and tap connect — you should see the packet
 counter rise, and the **Data-flow map** populate.

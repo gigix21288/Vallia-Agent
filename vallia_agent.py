@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Heimdall Agent — a local LAN sensor for the Heimdall OS phone app.
+Vallia Agent — a local LAN sensor for the Vallia phone app.
 
-It captures packet headers on your network and streams them to the Heimdall app
+It captures packet headers on your network and streams them to the Vallia app
 over a WebSocket on your LAN. It is 100% local: it only ever serves to your own
 devices over the private network — nothing is ever sent to any cloud or to us.
 
@@ -22,9 +22,9 @@ WIRE FORMAT (one JSON object per WebSocket text frame) — matches the app exact
   {"src_ip":"…","dst_ip":"…","src_port":0,"dst_port":0,"size":0,"proto":"tcp","ts":0}
 
 USAGE
-  sudo python3 heimdall_agent.py                 # pcap mode, port 8765
-  sudo python3 heimdall_agent.py --mode dns      # DNS-only mode
-  sudo python3 heimdall_agent.py --iface eth0    # pin a capture interface
+  sudo python3 vallia_agent.py                 # pcap mode, port 8765
+  sudo python3 vallia_agent.py --mode dns      # DNS-only mode
+  sudo python3 vallia_agent.py --iface eth0    # pin a capture interface
 
 Then, in the app → Sentry Monitor, set the agent URL to:
   ws://<this-host-ip>:8765/stream/packets
@@ -158,10 +158,10 @@ def start_sniffer(hub, mode, iface):
         try:
             sniff(filter=bpf, prn=prn, store=False, iface=iface)
         except PermissionError:
-            print("[Heimdall Agent] ERROR: packet capture needs root. "
+            print("[Vallia Agent] ERROR: packet capture needs root. "
                   "Re-run with sudo.", file=sys.stderr)
         except Exception as e:  # noqa: BLE001 — surface any capture failure
-            print(f"[Heimdall Agent] capture error: {e}", file=sys.stderr)
+            print(f"[Vallia Agent] capture error: {e}", file=sys.stderr)
 
     t = threading.Thread(target=run, daemon=True)
     t.start()
@@ -211,9 +211,9 @@ async def main_async(args):
             hub.unregister(ws)
 
     auth = "on (token required)" if args.token else "off (LAN trust)"
-    print(f"[Heimdall Agent] mode={args.mode}  auth={auth}  "
+    print(f"[Vallia Agent] mode={args.mode}  auth={auth}  "
           f"serving ws://0.0.0.0:{args.port}{WS_PATH}")
-    print("[Heimdall Agent] In the app → Sentry Monitor, set the URL to "
+    print("[Vallia Agent] In the app → Sentry Monitor, set the URL to "
           f"ws://<this-host-ip>:{args.port}{WS_PATH}")
     async with websockets.serve(handler, "0.0.0.0", args.port):
         await asyncio.Future()  # run forever
@@ -221,7 +221,7 @@ async def main_async(args):
 
 def main():
     p = argparse.ArgumentParser(
-        description="Heimdall Agent — local LAN sensor for the Heimdall app.")
+        description="Vallia Agent — local LAN sensor for the Vallia app.")
     p.add_argument("--mode", choices=["pcap", "dns"], default="pcap",
                    help="pcap = full packet headers (default); "
                         "dns = DNS lookups only (lighter, more private)")
@@ -237,7 +237,7 @@ def main():
     try:
         asyncio.run(main_async(args))
     except KeyboardInterrupt:
-        print("\n[Heimdall Agent] stopped")
+        print("\n[Vallia Agent] stopped")
 
 
 if __name__ == "__main__":

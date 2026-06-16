@@ -1,5 +1,5 @@
 #!/bin/sh /etc/rc.common
-# procd init script for the Heimdall Agent on OpenWrt.
+# procd init script for the Vallia Agent on OpenWrt.
 START=95
 STOP=10
 USE_PROCD=1
@@ -8,7 +8,7 @@ start_service() {
     procd_open_instance
     # To require a shared token, append:  --token YOURTOKEN
     # (set the SAME token in the app → Settings → Agent token)
-    procd_set_param command /usr/bin/python3 /opt/heimdall-agent/heimdall_agent.py --mode pcap
+    procd_set_param command /usr/bin/python3 /opt/vallia-agent/vallia_agent.py --mode pcap
     procd_set_param respawn
     procd_set_param stdout 1
     procd_set_param stderr 1
