@@ -13,7 +13,7 @@
   { "keywords": ["windows 7", "windows xp", "android 4", "android 5", "ios 9", "ios 10"], "traits": [], "eol": true },
   { "keywords": ["hikvision", "dahua"], "traits": ["camera", "cloudDependent"], "eol": true },
 
-  { "keywords": ["imou", "ipc", "ezviz", "foscam", "amcrest", "lorex", "swann", "annke", "vivotek", "instar", "uvc"], "traits": ["camera", "cloudDependent", "RTSP stream"] },
+  { "keywords": ["imou", "ipc", "ezviz", "foscam", "amcrest", "lorex", "swann", "annke", "vivotek", "instar", "uvc", "huacheng"], "traits": ["camera", "cloudDependent", "RTSP stream"] },
   { "keywords": ["google-home", "googlehome", "google-nest", "nest-mini", "nest-hub", "nest-audio", "echo-dot", "echo-show", "echodot", "amazon-echo"], "traits": ["microphone", "alwaysListening", "cloudDependent"] },
   { "keywords": ["samsung-tv", "samsungtv", "lg-tv", "lgtv", "lg-webos", "bravia", "sony-tv", "hisense", "tcl", "philips-tv", "fire-tv", "android-tv", "androidtv", "shield", "nvidia-shield", "appletv", "apple-tv"], "traits": ["microphone", "cloudDependent"] },
   { "keywords": ["tapo", "kasa", "shelly", "sonoff", "tuya", "smartlife", "meross", "wemo", "lifx", "philips-hue", "hue-bridge", "smartthings", "tradfri", "switchbot"], "traits": ["cloudDependent"] },
